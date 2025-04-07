@@ -40,7 +40,7 @@ pipeline {
             archiveArtifacts artifacts: '**/TestResults/*.trx', allowEmptyArchive: true
 			step([
 			$class:'MSTestPublisher'
-			testResulFile: '**/TestResults/*.trx'
+			testResultFile: '**/TestResults/*.trx'
 			])
             
         }
