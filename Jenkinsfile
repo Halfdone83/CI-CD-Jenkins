@@ -33,21 +33,12 @@ pipeline {
                 bat 'dotnet test SeleniumIde.sln --logger "trx;LogFileName=TestResults.trx"'
             }
         }
-
-        stage("Convert .trx to JUnit XML") {
-            steps {
-                bat '''
-                    choco install trx2junit -y
-                    trx2junit SeleniumIDE\\TestResults\\TestResults.trx
-                '''
-            }
-        }
     }
 
     post {
         always {
-            archiveArtifacts artifacts: '**/TestResults/*.*', allowEmptyArchive: true
-            junit '**/TestResults/*.xml'
+            archiveArtifacts artifacts: '**/TestResults/*.trx', allowEmptyArchive: true
+            junit '**/TestResults/*.trx'
         }
     }
 }
